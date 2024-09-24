@@ -1,3 +1,3 @@
 # VASP_helper
 
-VASP post-processing code
+VASP post-scripting codes
