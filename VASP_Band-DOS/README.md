@@ -229,10 +229,3 @@ Generated files:
 4. Check `DOSCAR_tot` and `DOSCAR_atom#N`
 
 ---
-
-## Source Summary
-This README was written based on the behavior of:
-
-- `Band+DOS_Fin.c` :contentReference[oaicite:0]{index=0}
-- `DOS-only/DOS_Fin.c` (`DOS_Fin.c`) :contentReference[oaicite:1]{index=1}
-- `dos-decom/decom-DOS_Fin.c` (`decom-DOS_Fin.c`) :contentReference[oaicite:2]{index=2}
