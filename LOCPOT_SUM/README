@@ -1,0 +1,7 @@
+**USAGE
+1. Prepare the Files, which are LOCPOT and POSCAR (or CONTCAR).  
+ 1-1. POSCAR or CONTCAR should be required
+2. complie VASP_LOCPOT-sum.c  
+ 2-1. gcc VASP_LOCPOT-sum.c -lm -o "excute_file_name.x"
+ 2-2. "excute_file_name.x" can be changed, e.g. locpot.x
+3. Run the excute file in target directory, which include LOCPOT and POSCAR (or CONTCAR)
