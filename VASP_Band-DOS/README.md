@@ -1,15 +1,29 @@
-# Band and DOS Analysis Utilities for VASP
+# VASP Band and DOS Analysis Codes
 
 ## Overview
-This directory contains C codes for analyzing VASP band structure and density of states (DOS) results.
+This repository contains C codes for analyzing VASP band structure and density of states (DOS) results.
 
-The codes are designed to read `EIGENVAL` and/or `DOSCAR`, separate useful data into simpler text files, and in some cases generate gnuplot scripts and final EPS figures.
+The repository is organized into three parts:
 
-Included source files:
+- `Band+DOS_Fin.c`  
+  for combined band structure + DOS analysis
 
-- `Band+DOS_Fin.c`
-- `DOS_Fin.c`
-- `decom-DOS_Fin.c`
+- `DOS-only/DOS_Fin.c`  
+  for DOS-only analysis
+
+- `dos-decom/decom-DOS_Fin.c`  
+  for decomposed atomic/orbital DOS analysis
+
+---
+
+## Repository Structure
+
+    .
+    ├── Band+DOS_Fin.c
+    ├── DOS-only
+    │   └── DOS_Fin.c
+    └── dos-decom
+        └── decom-DOS_Fin.c
 
 ---
 
@@ -39,7 +53,7 @@ Main output files include:
 
 ---
 
-### 2. `DOS_Fin.c`
+### 2. `DOS-only/DOS_Fin.c`
 This program reads `DOSCAR` and splits DOS data into:
 
 - total DOS
@@ -54,8 +68,8 @@ This version is suitable when only DOS analysis is needed.
 
 ---
 
-### 3. `decom-DOS_Fin.c`
-This program also reads `DOSCAR` and splits DOS data, but it stores more detailed atomic DOS columns than `DOS_Fin.c`.
+### 3. `dos-decom/decom-DOS_Fin.c`
+This program also reads `DOSCAR` and splits DOS data, but stores more detailed atomic DOS columns than `DOS_Fin.c`.
 
 It is intended for more decomposed orbital DOS analysis.
 
@@ -74,12 +88,12 @@ Prepare the following files in the same directory:
 - `EIGENVAL`
 - `DOSCAR`
 
-### For `DOS_Fin.c`
+### For `DOS-only/DOS_Fin.c`
 Prepare the following file in the same directory:
 
 - `DOSCAR`
 
-### For `decom-DOS_Fin.c`
+### For `dos-decom/decom-DOS_Fin.c`
 Prepare the following file in the same directory:
 
 - `DOSCAR`
@@ -96,16 +110,14 @@ Prepare the following file in the same directory:
 
 ## Compile
 
-Compile each file with `gcc` and link the math library.
-
 ### Band + DOS
     gcc Band+DOS_Fin.c -lm -o banddos.x
 
 ### DOS only
-    gcc DOS_Fin.c -lm -o dos.x
+    gcc DOS-only/DOS_Fin.c -lm -o dos.x
 
 ### Decomposed DOS
-    gcc decom-DOS_Fin.c -lm -o decom_dos.x
+    gcc dos-decom/decom-DOS_Fin.c -lm -o decom_dos.x
 
 ---
 
@@ -128,7 +140,7 @@ Then the generated files will include:
 
 ---
 
-### 2. DOS analysis only
+### 2. DOS-only analysis
 Run in the directory containing `DOSCAR`:
 
     ./dos.x
@@ -156,13 +168,13 @@ Generated files:
 - `gnudos`
 - `*.eps`
 
-### `DOS_Fin.c`
+### `DOS-only/DOS_Fin.c`
 Generated files:
 
 - `DOSCAR_tot`
 - `DOSCAR_atom#N`
 
-### `decom-DOS_Fin.c`
+### `dos-decom/decom-DOS_Fin.c`
 Generated files:
 
 - `DOSCAR_tot`
@@ -206,7 +218,13 @@ Generated files:
 
 ### For DOS-only extraction
 1. Prepare `DOSCAR`
-2. Compile `DOS_Fin.c` or `decom-DOS_Fin.c`
+2. Compile `DOS-only/DOS_Fin.c`
+3. Run the executable
+4. Check `DOSCAR_tot` and `DOSCAR_atom#N`
+
+### For decomposed DOS extraction
+1. Prepare `DOSCAR`
+2. Compile `dos-decom/decom-DOS_Fin.c`
 3. Run the executable
 4. Check `DOSCAR_tot` and `DOSCAR_atom#N`
 
@@ -215,6 +233,6 @@ Generated files:
 ## Source Summary
 This README was written based on the behavior of:
 
-- `Band+DOS_Fin.c`
-- `DOS_Fin.c`
-- `decom-DOS_Fin.c`
+- `Band+DOS_Fin.c` :contentReference[oaicite:0]{index=0}
+- `DOS-only/DOS_Fin.c` (`DOS_Fin.c`) :contentReference[oaicite:1]{index=1}
+- `dos-decom/decom-DOS_Fin.c` (`decom-DOS_Fin.c`) :contentReference[oaicite:2]{index=2}
