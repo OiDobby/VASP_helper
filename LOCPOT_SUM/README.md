@@ -83,6 +83,3 @@ For example:
     0.300000    1.18000000000E+00
 
 ---
-
-## Source
-This README was written based on the behavior of `VASP_LOCPOT-sum.c`.
