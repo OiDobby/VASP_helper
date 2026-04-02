@@ -89,6 +89,7 @@ fclose(TEMPORARY1_CAR);
 //find number of atom in original file end
 
 //reciving structure data from original file start
+/*
 ORIGINAL_CAR = fopen("./LOCPOT","r");
 TEMPORARY1_CAR = fopen("./TEMP.txt","w");
 TEMPORARY2_CAR = fopen("./POSCAR","w");
@@ -104,7 +105,22 @@ fprintf(TEMPORARY1_CAR,"%s",txt);
 fclose(ORIGINAL_CAR);
 fclose(TEMPORARY1_CAR);
 fclose(TEMPORARY2_CAR);
+*/
 
+ORIGINAL_CAR = fopen("./LOCPOT","r");
+TEMPORARY1_CAR = fopen("./TEMP.txt","w");
+/* TEMPORARY2_CAR = fopen("./POSCAR","w"); */
+for(test1=1;test1<8+TOTAL_ATOM+3;test1++)
+{
+    fgets(txt,92,ORIGINAL_CAR);
+    /* if(test1<8+TOTAL_ATOM+3)
+        fprintf(TEMPORARY2_CAR,"%s",txt); */
+    if(test1>8+TOTAL_ATOM+1)
+        fprintf(TEMPORARY1_CAR,"%s",txt);
+}
+
+fclose(ORIGINAL_CAR);
+fclose(TEMPORARY1_CAR);
 
 TEMPORARY1_CAR = fopen("./TEMP.txt","r");
 for(test2=1;test2<4;test2++)
@@ -141,6 +157,7 @@ fclose(TEMPORARY2_CAR);
 
 //reciving structure data from original file end
 
+/*
 TEMPORARY3_CAR = fopen("./POSCAR","r");
 fscanf(TEMPORARY3_CAR,"%lf",&L4);
 for(x=1;x<4;x++){
@@ -157,6 +174,48 @@ fclose(TEMPORARY3_CAR);
 a1 = sqrt(pow(L1[1],2)+pow(L1[2],2)+pow(L1[3],2));
 a2 = sqrt(pow(L2[1],2)+pow(L2[2],2)+pow(L2[3],2));
 a3 = sqrt(pow(L3[1],2)+pow(L3[2],2)+pow(L3[3],2));
+*/
+
+FILE *STRUCT_CAR = NULL;
+
+/* POSCAR or CONTCAR */
+STRUCT_CAR = fopen("./POSCAR","r");
+if(STRUCT_CAR != NULL){
+    printf("Reading lattice from POSCAR\n");
+}
+else{
+    STRUCT_CAR = fopen("./CONTCAR","r");
+    if(STRUCT_CAR != NULL){
+        printf("Reading lattice from CONTCAR\n");
+    }
+    else{
+        printf("Error: neither POSCAR nor CONTCAR exists.\n");
+        return 1;
+    }
+}
+
+/* 1st line: comment */
+fgets(txt, 92, STRUCT_CAR);
+
+/* 2nd line: scale factor */
+fscanf(STRUCT_CAR,"%lf",&L4);
+
+/* 3rd~5th lines: lattice vectors */
+for(x=1;x<4;x++){
+    fscanf(STRUCT_CAR,"%lf",&L1[x]);
+}
+for(y=1;y<4;y++){
+    fscanf(STRUCT_CAR,"%lf",&L2[y]);
+}
+for(z=1;z<4;z++){
+    fscanf(STRUCT_CAR,"%lf",&L3[z]);
+}
+
+fclose(STRUCT_CAR);
+
+a1 = L4 * sqrt(pow(L1[1],2)+pow(L1[2],2)+pow(L1[3],2));
+a2 = L4 * sqrt(pow(L2[1],2)+pow(L2[2],2)+pow(L2[3],2));
+a3 = L4 * sqrt(pow(L3[1],2)+pow(L3[2],2)+pow(L3[3],2));
 
 printf("a1=%lf a2=%lf a3=%lf \n",a1,a2,a3);
 
@@ -211,7 +270,8 @@ for(z=1;z<NGZ+1;z++){
 
 j = NGZ;
 k = ORIGINAL_3D_CAR[0][0][0];
-h = NGX*NGY*NGZ;
+/*h = NGX*NGY*NGZ;*/
+h = NGX*NGY;
 g = k/h;
 
 printf("Total number of electron=%lf \n",k);
@@ -227,7 +287,8 @@ fclose(FINAL_CAR);
 //calculation part end
 
  system("mv Final_3D_Grid_Data_Only ./LOCPOT_sum-c");
- system("rm Original_3D_Grid_Data_Only TEMP.txt POSCAR");
+ /*system("rm Original_3D_Grid_Data_Only TEMP.txt POSCAR");*/
+ system("rm Original_3D_Grid_Data_Only TEMP.txt");
 
 return 0;
 }
