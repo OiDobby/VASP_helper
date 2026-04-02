@@ -167,6 +167,3 @@ This directory stores projected-band-related outputs such as:
 - Different PROCAR formatting may affect the decomposition labels.
 
 ---
-
-## Source
-This README was written based on the behavior of `procar_anal.c`.
