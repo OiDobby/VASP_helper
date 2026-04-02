@@ -1,4 +1,4 @@
-##USAGE
+## USAGE
 1. Prepare the Files, which are LOCPOT and POSCAR (or CONTCAR).  
     - POSCAR or CONTCAR should be required
 2. complie VASP_LOCPOT-sum.c  
